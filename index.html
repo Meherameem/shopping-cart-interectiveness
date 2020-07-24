@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section id="shoppingCart">
+      <div class="container">
+         <!--iphone starts here-->
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="btnMinusPhone" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="phoneCount" type="text" class="form-control text-center" value="1">
+                           <button id="btnPlusPhone" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="phonePrice">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+               <!--phonecase starts here-->
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="btnMinusCase" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="caseCount" type="text" class="form-control text-center" value="1">
+                           <button id="btnPlusCase" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="casePrice">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+               <!--calculation starts here-->
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-6 col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-6 col-md-4 status">
+                        <h5>$ <span id="subTotal">1,278</span></h5>
+                        <h5>$ <span id="tax">0</span></h5>
+                        <h5>$ <span id="total">1,278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button id="checkOutBtn" type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!--thank you part-->
+   <section>
+      <h1 id="thankYou" class="text-center" style="margin-top: 150px; display: none; color: tomato;">Thank You for Shopping with Us.</h1>
+   </section>
+
+   <!--javascript starts here-->
+
+   <script>
+      // functions start here
+         function valueToNum(id){
+            const count = parseFloat(document.getElementById(id).value);
+            return count;
+         }
+         function textToNum(id){
+            const text = parseFloat(document.getElementById(id).innerText.replace(/,/g,''));
+            return text;
+         }
+         function valueReplace(id,values){
+            document.getElementById(id).value = values;
+         }
+         function textReplace(id,text){
+            document.getElementById(id).innerText = text;
+         }
+      // functions end here
+
+      // for the phone plus part
+      const btnPlusPhone = document.getElementById('btnPlusPhone');
+         btnPlusPhone.addEventListener('click',function(){
+         var phoneCount = valueToNum('phoneCount');
+         var phonePrice = textToNum('phonePrice');
+         var subTotal = textToNum('subTotal');
+         var tax = textToNum('tax');
+         var total = textToNum('total');
+         
+         phoneCount = phoneCount + 1;
+         phonePrice = 1219 * phoneCount;
+         subTotal = subTotal + 1219;
+         tax = tax + 20;
+         total = subTotal + tax;
+         
+         
+         valueReplace('phoneCount',phoneCount);
+         textReplace('phonePrice',phonePrice);
+         textReplace('subTotal',subTotal);
+         textReplace('tax',tax);
+         textReplace('total',total); 
+      });
+      // for the phone minus part
+      const btnMinusPhone = document.getElementById('btnMinusPhone');
+      btnMinusPhone.addEventListener('click',function(){
+         var phoneCount = valueToNum('phoneCount');
+         var phonePrice = textToNum('phonePrice');
+         var subTotal = textToNum('subTotal');
+         var tax = textToNum('tax');
+         var total = textToNum('total');
+         
+
+         if (phoneCount<=1){
+            alert("The minimum value is one.");
+         }
+         else if(phoneCount>1){
+            phoneCount = phoneCount - 1;
+            phonePrice = 1219 * phoneCount;
+            subTotal = subTotal - 1219;
+            tax = tax - 20;
+            total = subTotal + tax;
+         }
+         
+         
+         valueReplace('phoneCount',phoneCount);
+         textReplace('phonePrice',phonePrice);
+         textReplace('subTotal',subTotal);
+         textReplace('tax',tax);
+         textReplace('total',total); 
+      });
+
+
+      // for case plus part
+      const btnPlusCase = document.getElementById('btnPlusCase');
+         btnPlusCase.addEventListener('click',function(){
+         var caseCount = valueToNum('caseCount');
+         var casePrice = textToNum('casePrice');
+         var subTotal = textToNum('subTotal');
+         var tax = textToNum('tax');
+         var total = textToNum('total');
+         
+         caseCount = caseCount + 1;
+         casePrice = 59 * caseCount;
+         subTotal = subTotal + 59;
+         tax = tax + 10;
+         total = subTotal + tax;
+         
+         
+         valueReplace('caseCount',caseCount);
+         textReplace('casePrice',casePrice);
+         textReplace('subTotal',subTotal);
+         textReplace('tax',tax);
+         textReplace('total',total); 
+      });
+
+      // for case minus part
+      const btnMinusCase = document.getElementById('btnMinusCase');
+      btnMinusCase.addEventListener('click',function(){
+         var caseCount = valueToNum('caseCount');
+         var casePrice = textToNum('casePrice');
+         var subTotal = textToNum('subTotal');
+         var tax = textToNum('tax');
+         var total = textToNum('total');
+         
+         if (caseCount<=1){
+            alert("The minimum value is one.");
+         }
+         else if(caseCount>1){
+            caseCount = caseCount - 1;
+            casePrice = 59 * caseCount;
+            subTotal = subTotal - 59;
+            tax = tax - 10;
+            total = subTotal + tax;
+         }
+         
+         
+         valueReplace('caseCount',caseCount);
+         textReplace('casePrice',casePrice);
+         textReplace('subTotal',subTotal);
+         textReplace('tax',tax);
+         textReplace('total',total); 
+      });
+      // checking out part
+      const checkOutBtn = document.getElementById('checkOutBtn');
+      checkOutBtn.addEventListener('click',function(){
+         const shoppingCart = document.getElementById('shoppingCart');
+         shoppingCart.style.display = 'none';
+
+         document.getElementById('thankYou').style.display = 'block';
+      });
+   </script>
+</body>
+
+</html>
